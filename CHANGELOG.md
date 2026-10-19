@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.1
+
+- Fixed blurry, pixelated streams. The HDR stream is now marked as screen content, so Discord keeps full resolution. Before, it was handled like a webcam and dropped to 640×360 under normal bandwidth.
+
 ## 1.0.0
 
 - **HDR screen and window sharing.** Captures the real HDR image and tone-maps it on the GPU, so viewers don't get a washed-out or blown-out picture. Windows HDR stays on.

@@ -150,7 +150,10 @@ async function swapInHdrCapture(stream: MediaStream, video: MediaStreamTrack, ta
 
     const generator: MediaStreamTrack = new MediaStreamTrackGenerator({ kind: "video" });
     const writer = (generator as any).writable.getWriter();
-    try { generator.contentHint = video.contentHint || "motion"; } catch { }
+    // Mark it as screen content. Without this WebRTC treats the track like a webcam and drops the
+    // resolution under any bandwidth pressure (measured: 640x360 even at 6 Mbps). "detail" matches how
+    // Chromium treats a native screen capture: full resolution at normal stream bitrates.
+    try { generator.contentHint = video.contentHint || "detail"; } catch { }
 
     let running = true;
     const end = () => {
